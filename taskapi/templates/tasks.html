@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+
+
+{% endblock %}
+
+
+{% block content %}
+
+<h1> Tasks </h1>
+<div class="mt-3">
+    <div id="task-container">
+
+        <div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Assigned to</th>
+                    <th>created_by</th>
+                </tr>
+                </thead>
+                <tbody id="list-wrapper">
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    getList();
+    function getList(){
+    var wrapper = document.getElementById('list-wrapper');
+    var url = 'http://127.0.0.1:8000/api/tasks/'
+    fetch(url)
+    .then(
+    (resp) => resp.json()
+    ).then(
+
+    function(data)
+    {
+        console.log('Data:', data);
+
+        var tasks = data;
+        for (var i in tasks)
+        {
+           var item = `
+           <tr>
+           <td>${tasks[i].title}</td>
+           <td>${tasks[i].status}</td>
+           <td>${tasks[i].assigned_to}</td>
+           <td>${tasks[i].user}</td>
+           <td><button class="btn btn-success">Submit</button></td>
+           `
+           wrapper.innerHTML += item;
+
+        }
+
+    });
+    }
+
+
+
+
+
+
+</script>
+{% endblock%}
