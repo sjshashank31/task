@@ -5,6 +5,6 @@ from . import views
 
 app_name = 'frontend'
 urlpatterns = [
-    path('tasks/', views.getTasks, name='tasks'),
+    path('', views.getTasks, name='tasks'),
 
 ]
